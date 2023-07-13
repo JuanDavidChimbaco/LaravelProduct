@@ -22,6 +22,9 @@ Route::get('/home', function () {
 Route::get('/productos', function(){
     return view('productos');
 });
+Route::get('/', function(){
+    return view('index');
+});
 
 
 // Route::get('/producto',[ProductoController::class,'index']);
