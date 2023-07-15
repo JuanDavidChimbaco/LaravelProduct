@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- listas y arrays -->
-                <ul v-for="fruta in frutas">
+                <ul v-for="fruta in frutas" :key="fruta.id">
                     <li v-text="fruta"></li>
                 </ul>
                 <!-- listar  -->
@@ -62,7 +62,7 @@ export default {
             count: 0,
             nombre:'',
             estado: false,
-            frutas: ['banano'],
+            frutas: [],
             fruit:'',
             name:''
         }
@@ -76,9 +76,12 @@ export default {
             this.fruit = '';
         },
         async lista(){
-            let response = await axios.get('https://localhost:8000/productos')
-            console.log(response.data);
-            this.frutas = response.data
+            let response = await axios.get('http://127.0.0.1:8000/producto')
+            console.log(response);
+            response.data.forEach(element => {
+                this.frutas.push(element.nombre)
+            });
+            
         }
     },
     mounted(){
