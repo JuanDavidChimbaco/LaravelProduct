@@ -9,27 +9,39 @@ function create() {
             read()
         })
         .catch(function (error) {
+            errores(error)
             console.log(error);
         })
 }
 
-function read() {
-    let data = ""
-    axios.get('/producto')
+function read(url = "/producto") {
+    let data = "";
+    let pagination = "" ;
+    axios.get(url)
         .then(function (response) {
-            console.log(response.data);
-            response.data.forEach((p, index) => {
+            // console.log(response.data);
+
+            response.data.data.forEach((p, index) => {
                 data += `<tr>
                             <th scope="row">${index+1}</th>
                             <td>${p.nombre}</td>
                             <td>${p.cantidad}</td>
                             <td>${p.estado}</td>
-                            <td>
+                            <td colspan="2">
                                 <input type="radio" name="checkOpcion" id="checkOpcion" onclick='load(${JSON.stringify(p)})'>
-                                <a href="" onclick='deleted(${p.id})' class="btn btn-danger">Eliminar</a>
+                                &nbsp; &nbsp;
+                                <a href="" onclick='deleted(${p.id})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>`
             })
+
+
+            response.data.links.forEach((elements) => {
+                pagination +=  `<td>
+                                    <a onclick="read('${elements.url}')" class="btn btn-outline-secondary"><p><small>${elements.label}</small></p></a>
+                                </td>`;
+            });
+            pages.innerHTML = pagination;
             table.innerHTML = data;
         })
         .catch(function (error) {
@@ -87,4 +99,26 @@ function deleted(idD){
         })
     }
 }
+
+function clean(){
+    txtNombre.value = '';
+    txtCantidad.value = '';
+    checkOpcion.checked = false;
+}
+
+function errores(error){
+    console.log(error.response.data.errors);
+    let e = ''
+    // Object.values(error.response.data.errors).forEach((value)=>{
+    //     e += value + '<br>'
+    // })
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo salio mal!',
+        html: `<b>Por favor verifica los datos</b> <hr><br>${error.message}<br><p><small style="font-size: 1rem;">${e}</small></p>`,
+        })
+}
+
+
 read()

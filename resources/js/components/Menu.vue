@@ -6,25 +6,27 @@
             </div>
             <div class="card-body">
                 <p>Hola esto es un componente nuevo.</p>
+
+                <!-- hacer un contador -->
                 {{ count }}
                 <div>
-                    <button @click="count++" class="btn btn-primary">Incrementar</button>
-                    <button @click="count=0" class="btn btn-primary">Resetear</button>
-                    <button v-on:click="count--" class="btn btn-primary">Disminuir</button>
+                    <button @click="count++" class="btn btn-primary mx-lg-1">Incrementar</button>
+                    <button @click="count=0" class="btn btn-primary mx-lg-1">Resetear</button>
+                    <button v-on:click="count--" class="btn btn-primary mx-lg-1">Disminuir</button>
                 </div>
 
                 <!-- mostrar lo que dijite en el input -->
                 <div class="mt-2">
-                    <input type="text" v-model="nombre">
-                    <h4 v-text="nombre"></h4>
+                    <input type="text" v-model="nombre1">
+                    <h4 v-text="nombre1"></h4>
                 </div>
 
-                <!-- poner dinamio el los atributos de los html -->
+                <!-- poner dinamico el los atributos de los html -->
                 <div class="mt-2">
                     <input v-bind:type="nombre" v-model="nombre">
                 </div>
 
-                <!-- ocultar capos -->
+                <!-- ocultar campos -->
                 <div class="mt-2">
                     <input type="text" v-model="estado">
                     <button :disabled="estado" class="btn btn-success">Boton</button>
@@ -60,6 +62,7 @@ export default {
     data() {
         return {
             count: 0,
+            nombre1:'',
             nombre:'',
             estado: false,
             frutas: [],
@@ -81,7 +84,7 @@ export default {
             response.data.forEach(element => {
                 this.frutas.push(element.nombre)
             });
-            
+
         }
     },
     mounted(){

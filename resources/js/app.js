@@ -21,6 +21,8 @@ app.component('example-component', ExampleComponent);
 import Menu from './components/Menu.vue';
 app.component('menu-component', Menu);
 
+import OffCanvas from './components/OffCanvas.vue';
+app.component('off-canvas', OffCanvas);
 
 /**
  * The following block of code may be used to automatically register your

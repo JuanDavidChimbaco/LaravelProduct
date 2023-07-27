@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductosRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,12 @@ class ProductoController extends Controller
     {
         //
     }
+
+    public function __construct()
+    {
+        $this->middleware('cant', ['only' => ['store']]);
+    }
+
     // ---------------------------------------------------------------------------
     /**
      * Display a listing of the resource.
@@ -40,15 +47,26 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return Producto::all();
+        return Producto::paginate(5);
     }
 
     /**
      * Store a newly created resource in storage.c
      * crear
      */
-    public function store(Request $request)
+    public function store(ProductosRequest $request)
     {
+        // $message = [
+        //     'required' => 'El campo :attribute es requerido.',
+        //     'max' => 'El campo :attribute no puede tener más de :max caracteres.',
+        //     'min' => 'El campo :attribute no puede tener menos de :min caracteres.',
+        //     'unique' => 'El campo :attribute ya existe.',
+        //     'numeric' => 'El campo :attribute debe ser numérico.',
+        // ];
+        // $validated = $request->validate([
+        //     'nombre' => 'required|max:20|min:1|unique:Productos',
+        //     'cantidad' => 'required|numeric|max:100|min:1',
+        // ],$message);
         Producto::create($request->all());
     }
 
