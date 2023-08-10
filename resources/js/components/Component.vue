@@ -1,5 +1,6 @@
 <template>
-    <div class="d-flex justify-content-center mt-5">
+<div class="container">
+    <div class="row d-flex justify-content-center mt-5">
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">Hola Mundo</h1>
@@ -17,18 +18,18 @@
 
                 <!-- mostrar lo que dijite en el input -->
                 <div class="mt-2">
-                    <input type="text" v-model="nombre1">
+                    <input type="text" v-model="nombre1" />
                     <h4 v-text="nombre1"></h4>
                 </div>
 
                 <!-- poner dinamico el los atributos de los html -->
                 <div class="mt-2">
-                    <input v-bind:type="nombre" v-model="nombre">
+                    <input v-bind:type="nombre" v-model="nombre" />
                 </div>
 
                 <!-- ocultar campos -->
                 <div class="mt-2">
-                    <input type="text" v-model="estado">
+                    <input type="text" v-model="estado" />
                     <button :disabled="estado" class="btn btn-success">Boton</button>
                 </div>
 
@@ -39,82 +40,93 @@
 
                 <!-- agregar frutas -->
                 <div class="mt-2">
-                    <input type="text" v-model="fruit" @keyup.enter="agregar()">
+                    <input type="text" v-model="fruit" @keyup.enter="agregar()" />
+                    <!--v-on es lo mismo que @ y se usa para eventos.-->
                     <button class="btn btn-success" @click="agregar()">Agregar Fruta</button>
                 </div>
 
                 <!-- listas y arrays -->
                 <ul v-for="fruta in frutas" :key="fruta.id">
-                    <li v-text="fruta"></li>
+                    <li v-text="fruta.nombre"></li>
+                    <li v-text="fruta.cantidad"></li>
                 </ul>
                 <!-- listar  -->
-                <button @click="lista()" class="btn btn-secondary"> poke</button>
+                <button @click="lista()" class="btn btn-secondary">poke</button>
                 <h3 v-text="name"></h3>
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
-import axios from 'axios';
-import { reactive,computed } from 'vue';
+import axios from "axios";
+import {
+    reactive,
+    computed
+} from "vue";
 export default {
     data() {
+        5;
         return {
             count: 0,
-            nombre1:'',
-            nombre:'',
+            nombre1: "",
+            nombre: "",
             estado: false,
             frutas: [],
-            fruit:'',
-            name:''
-        }
+            fruit: "",
+            name: "",
+        };
     },
     methods: {
-        saludar(){
-            alert("Hola Mundo")
+        saludar() {
+            alert("Hola Mundo");
         },
-        agregar(){
-            this.frutas.push(this.fruit);
-            this.fruit = '';
-        },
-        async lista(){
-            let response = await axios.get('http://127.0.0.1:8000/producto')
-            console.log(response);
-            response.data.forEach(element => {
-                this.frutas.push(element.nombre)
+        agregar() {
+            this.frutas.push({
+                nombre: this.fruit
             });
-
-        }
+            this.fruit = "";
+        },
+        async lista() {
+            let response = await axios.get("http://127.0.0.1:8000/producto");
+            console.log(response);
+            this.frutas = response.data.data;
+        },
     },
-    mounted(){
-        console.log('Hola Mundo')
+    mounted() {
+        console.log("Hola Mundo");
         // this.saludar()
+        this.lista();
+    },
+};
+
+const contador = computed(() => {
+    if (count == 0) {
+        return "neutro";
     }
+    if (count > 0) {
+        return "bien";
+    } else {
+        return "malo";
+    }
+});
+</script>
+
+<style>
+p {
+    color: black;
 }
 
-const contador = computed(() =>{
-    if (count == 0) {
-        return 'neutro'
-    }
-    if (count > 0){
-        return 'bien'
-    }else{
-        return 'malo'
-    }
-})
-</script>
-<style>
-    p{
-        color: black
-    }
-    .bien{
-        color: aquamarine;
-    }
-    .malo{
-        color: red;
-    }
-    .neutro{
-        color: black;
-    }
+.bien {
+    color: aquamarine;
+}
+
+.malo {
+    color: red;
+}
+
+.neutro {
+    color: black;
+}
 </style>

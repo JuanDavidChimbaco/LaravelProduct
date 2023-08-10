@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,38 +11,43 @@
 
     @vite(['resources/js/app.js'])
 </head>
+
 <body>
     <div id="app">
-        <menu-component></menu-component>
-        <example-component></example-component>
-        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-            Link with href
+        <ul class="nav justify-content-center">
+            <li class="nav-item" @click="selected = 'Example'">
+                <a class="nav-link" href="#">Example</a>
+            </li>
+            <li class="nav-item" @click="selected = 'Component'">
+                <a class="nav-link" href="#">Component</a>
+            </li>
+            <li class="nav-item" @click="selected = 'Pokemon'">
+                <a class="nav-link" href="#"> Pokemon</a>
+            </li>
+            <component :is="selected" />
+        </ul>
+
+        {{-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+            Link
           </a>
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            Button with data-bs-target
+            Button
           </button>
 
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Carrito</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
               <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+                Aqui van los productos
               </div>
-              <div class="dropdown mt-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                  Dropdown button
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </div>
+
             </div>
-          </div>
+          </div> --}}
+
     </div>
 </body>
+
 </html>
