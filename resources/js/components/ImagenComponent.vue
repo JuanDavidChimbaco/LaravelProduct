@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Imagen</h1>
-        {{ urlPokemon }}
+        <!-- {{ urlPokemon }} -->
         <div  v-if="urlPokemon" class="d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
                 <img :src="img" class="card-img-top" alt="...">
