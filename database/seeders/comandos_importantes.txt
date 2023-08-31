@@ -1,0 +1,21 @@
+composer install   #para instalar las dependencias de Laravel
+npm install  #para instalar los módulos de node.js
+
+php artisan route:list  #Mostrar todas las rutas registradas
+
+php artisan migrate #correr las migraciones para la base de datos
+
+php artisan make:model [nombreDelModel] -mcrfs #donde m=migraciones, c=controller, r=resourceController(CRUD),
+                                                f=factory, s=seeder (se pueden combinar a necesidad)
+
+php artisan db:seed #ejecutar las seeds
+
+php artisan key:generate #generar una nueva clave de aplicación
+
+php artisan make:middleware NombreMiddleware  #Crear un nuevo middleware
+
+php artisan make:auth  #Generar un controlador de autenticación
+
+php artisan test #Ejecutar pruebas PHPUnit
+
+php artisan make:resource NombreRecurso  #Generar recursos de API
