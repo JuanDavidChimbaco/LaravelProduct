@@ -1,54 +1,23 @@
-
 import './bootstrap';
-import { createApp } from 'vue';
-// import vueRouter from 'vue-router'; se puese asi o como abajo
-import { createRouter, createWebHashHistory } from 'vue-router';
+import '../css/app.css';
 
-import Component from './components/Component.vue';
-import Example from './components/Example.vue';
-// import Pokemon from './view/pokemon.vue'
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
-const routes = [
-    { path: '/component', component: Component },
-    { path: '/', component: Example },
-    {
-        path: '/pokemon',
-        // component: Pokemon
-        component: () => import('@/view/pokemon.vue'),
-        name: 'pokemon',
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(ZiggyVue, Ziggy)
+            .mount(el);
     },
-];
-
-const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
-});
-
-
-const app = createApp({
-    setup() {
-        const selected = "Pokemon";
-        return {
-            selected,
-        }
+    progress: {
+        color: '#4B5563',
     },
-    delimiters: ['[[', ']]'],
 });
-
-app.use(router);
-app.mount('#app');
-
-// window.app = createApp({
-//     components: {
-//         Component,
-//         Example,
-//         Pokemon,
-//     },
-//     setup() {
-//         const selected = ref('Pokemon');
-//         return {
-//             selected,
-//         };
-//     },
-// }).mount('#app');
-
